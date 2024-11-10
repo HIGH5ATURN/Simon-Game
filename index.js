@@ -10,6 +10,7 @@ let gameStarted = false;
 let level = 1;
 var sequences = [];
 
+
 function animation(keyID) {
     document.getElementById(keyID).classList.add("pressed");
     setTimeout(() => { document.getElementById(keyID).classList.remove("pressed"); }, 100);
@@ -39,14 +40,19 @@ async function checkSequence() {
 
     if (!correctSoFar) {
         // Game failed: reset level and sequence, and show failure message
+        
         level = 1;
         pressedButtons = [];
+
         document.querySelector("h1").innerHTML = "Game Over! Click to Restart.";
+        document.querySelector("body").style.backgroundColor="red";
         await new Promise(resolve => setTimeout(resolve, 100));
         document.addEventListener("click", startGame); // Allow restart on click
     } else if (pressedButtons.length === sequences.length) {
         // Sequence completed correctly: increase level
+       
         level++;
+        
         pressedButtons = [];
         setTimeout(startNextLevel, 1000); // Proceed to next level with a delay
     }
@@ -78,7 +84,7 @@ async function showSequence() {
 document.addEventListener("click", startGame);
 
  function startGame() {
-    
+    document.querySelector("body").style.backgroundColor="#011F3F";
     gameStarted = true;
     level = 1;
     pressedButtons = [];
